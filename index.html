@@ -15,9 +15,26 @@
     <hr>
     <p v-html="finishedLink"></p>
     <button v-on:click="increase(2, $event)">Click me</button>
-    <p>{{ counter }}</p>
+    <button v-on:click="counter++">Click me</button>
+    <p>{{ counter * 2 > 10 ? 'Greater than 10' : 'Smaller than 10' }}</p>
+
+    <button v-on:click="counter++">Increase</button>
+    <button v-on:click="counter--">Increase</button>
+    <button v-on:click="secondCounter++">Increase Second</button>
+    <p>Counter: {{ counter }} | {{ secondCounter }}</p>
+    <p>Result : {{ result() }} | {{ output }}</p>
+
     <p>Coordinates: {{ x }} / {{ y }}</p>
     <p v-on:mousemove="updateCoordinates">Coordinates: {{ x }} / {{ y }} - <span v-on:mousemove.stop="">DEAD SPOT</span></p>
+    <input type="text" v-on:keyup.enter.space="alertMe">
+    <button v-on:click="alertMe">Show Alert</button>
+    <br>
+    <input type="text" v-on:keydown="value = $event.target.value">
+    <p>{{ value }}</p>
+    <input type="text" v-on:keydown.enter="value = $event.target.value">
+    <br>
+    <input type="text" v-model="name">
+    <p>{{ name }}</p>
   </div>
 
 
@@ -30,19 +47,41 @@
       finishedLink: '<a href="https://google.com">Google</a>',
       counter: 0,
       x: 0,
-      y: 0
+      y: 0,
+      value: '',
+      name: 'Max',
+      // result: '',
+      secondCounter: 0
     },
+    computed: {
+      output: function() {
+        console.log('Computed')
+        return this.counter > 5 ? 'Greater 5' : 'Smaller than 5'
+      }
+    }
     methods: {
       sayHello: function() {
         this.title = 'Hello'
         return this.title
       },
       increase: function(step, event) {
-        this.counter += step
+        this.counter++
+        this.result = this.counter > 5 ? 'Greater 5' : 'Smaller 5'
+      },
+      decrease: function(step, event) {
+        this.counter--
+        this.result = this.counter > 5 ? 'Greater 5' : 'Smaller 5'
+      },
+      result: function() {
+        console.log('Methods')
+        return this.counter > 5 ? 'Greater 5' : 'Smaller than 5'
       },
       updateCoordinates: function(event) {
         this.x = event.clientX
         this.y = event.clientY
+      },
+      alertMe: function() {
+        alert('Alert')
       }
     }
   })
