@@ -12,6 +12,12 @@
   <div id="app">
     <h1 v-once>{{ title }}</h1>
     <p>{{ sayHello() }} - <a v-bind:href="link">Google</a></p>
+    <hr>
+    <p v-html="finishedLink"></p>
+    <button v-on:click="increase(2, $event)">Click me</button>
+    <p>{{ counter }}</p>
+    <p>Coordinates: {{ x }} / {{ y }}</p>
+    <p v-on:mousemove="updateCoordinates">Coordinates: {{ x }} / {{ y }} - <span v-on:mousemove.stop="">DEAD SPOT</span></p>
   </div>
 
 
@@ -20,12 +26,23 @@
     el: '#app',
     data: {
       title: 'Hello World',
-      link: 'https://google.com'
+      link: 'https://google.com',
+      finishedLink: '<a href="https://google.com">Google</a>',
+      counter: 0,
+      x: 0,
+      y: 0
     },
     methods: {
       sayHello: function() {
         this.title = 'Hello'
         return this.title
+      },
+      increase: function(step, event) {
+        this.counter += step
+      },
+      updateCoordinates: function(event) {
+        this.x = event.clientX
+        this.y = event.clientY
       }
     }
   })
