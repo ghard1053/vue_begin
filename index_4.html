@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Vue.js</title>
+  <link rel="stylesheet" href="">
+  <script src="vue.js"></script>
+    <style>
+
+  </style>
+</head>
+<body>
+
+  <div id="app">
+
+    <div>
+      <button @click="isShown = !isShown">Toggle</button>
+      <p v-if="isShoen">You either see me ...</p>
+      <p v-else>... or me</p>
+    </div>
+
+    <ul>
+      <li v-for="(ele, index) in array">{{ ele }} - {{ index }}</li>
+    </ul>
+
+    <ul>
+      <li v-for="(value, keyName, i) in myObject">{{ value }} - {{ keyName }} - {{ i }}</li>
+    </ul>
+
+    <ul>
+      <li v-for="value in testData">
+        <template v-if="Array.isArray(value)">
+          <div v-for="element in value">{{ element }}</div>
+        </template>
+        <template v-else">
+          {{ value }}
+        </template>
+      </li>
+    </ul>
+
+    <ul>
+      <li v-for="(ingredient, i) in ingredients" :key="ingredient"> {{ ingredient }} ({{ i }})</li>
+    </ul>
+    <button @click="ingredients.push('spices')">Add New</button>
+    <hr>
+      <ul>
+        <li v-for="person in persons">
+          <div v-for="(value, key, index) in person">{{ key }}: {{ value }} ({{ index }})</div>
+        </li>
+      </ul>
+      <span v-for="n in 10">{{ n }}</span>
+    <hr>
+    <template v-for="(ingredient, index) in ingredients">
+      <h1>{{ ingredient }}</h1>
+      <p>{{ index }}</p>
+    </template>
+  </div>
+
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      isShown: true,
+      array: ['Max', 'Anna', 'tom', 'mayu'],
+      myObject: {
+        title: 'aaa',
+        author: 'mazmaz',
+        books: '3'
+      },
+      testData: {
+        name: 'TEST',
+        id: 10,
+        data: [1, 2, 3]
+      },
+      ingredients: ['meat', 'fruit', 'cookies'],
+      persons: [
+        {name: 'Max', age: 27, color: 'red'},
+        {name: 'Anna', age: 'unknown', color: 'blue'}
+      ]
+    }
+  })
+</script>
+</body>
+</html>
